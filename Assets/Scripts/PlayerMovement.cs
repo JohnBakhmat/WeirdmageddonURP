@@ -38,8 +38,8 @@ public class PlayerMovement : MonoBehaviour
         break;
     }
 
-
-    transform.localScale = new Vector3((float)facingDirection, 1, 1);
+    var facingMultiplier = (float)facingDirection;
+    transform.localScale = new Vector3(facingMultiplier * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
   }
 
 
