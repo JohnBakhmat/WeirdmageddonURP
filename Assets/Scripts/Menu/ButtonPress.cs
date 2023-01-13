@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ButtonPress : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  [SerializeField] private TextMeshPro textMesh;
+  [SerializeField] private Color baseColor = Color.white;
+  [SerializeField] private Color hoverColor = Color.red;
+
+
+  protected void OnMouseEnter()
+  {
+    textMesh.color = hoverColor;
+  }
+
+  protected void OnMouseExit()
+  {
+    textMesh.color = baseColor;
+  }
+
+  protected void OnMouseDown()
+  {
+    Debug.Log("Button Pressed");
+  }
 }
+
