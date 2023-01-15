@@ -6,8 +6,8 @@ public class ButtonPress : MonoBehaviour
 
   [SerializeField] private TextMeshPro textMesh;
   [SerializeField] private Color baseColor = Color.white;
-  [SerializeField] private Color hoverColor = Color.red;
-
+  //Teal color
+  [SerializeField] private Color hoverColor = new Color() { r = 0.0f, g = 128f / 225f, b = 128f / 225f, a = 1.0f };
 
   protected void OnMouseEnter()
   {
