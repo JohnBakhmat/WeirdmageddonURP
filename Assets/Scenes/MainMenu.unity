@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 1014351889}
   - component: {fileID: 1014351890}
   m_Layer: 0
-  m_Name: Options
+  m_Name: Settings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,7 +600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: OPTIONS
+  m_text: Settings
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 06038d39128028a488e4a681ce6ac2ac, type: 2}
   m_sharedMaterial: {fileID: -4538461930310197108, guid: 06038d39128028a488e4a681ce6ac2ac, type: 2}
@@ -749,7 +749,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1014351884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd8671e85228f834498e0f32ef4988fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 912d2696d6ff0fb409230afc46a9a750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   textMesh: {fileID: 1014351887}
@@ -994,8 +994,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2047898026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.22, y: -0.3634448, z: 0.55}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.2418, y: -0.2708, z: 0.55}
+  m_LocalScale: {x: 0.826, y: 0.7711, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 767179879}

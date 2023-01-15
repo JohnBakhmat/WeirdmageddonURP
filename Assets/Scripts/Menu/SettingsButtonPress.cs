@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OptionsButtonPress : ButtonPress
+public class SettingsButtonPress : ButtonPress
 {
   protected new void OnMouseDown()
   {
