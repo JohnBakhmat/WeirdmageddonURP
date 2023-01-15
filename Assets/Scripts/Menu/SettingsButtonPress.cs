@@ -1,10 +1,8 @@
-using UnityEngine;
-
 public class SettingsButtonPress : ButtonPress
 {
-  protected new void OnMouseDown()
+  protected override void OnMouseDown()
   {
-    Debug.Log("Options Button Pressed");
+    UnityEngine.SceneManagement.SceneManager.LoadScene("SettingsMenu");
   }
 }
 

@@ -19,7 +19,7 @@ public class ButtonPress : MonoBehaviour
     textMesh.color = baseColor;
   }
 
-  protected void OnMouseDown()
+  protected virtual void OnMouseDown()
   {
     Debug.Log("Button Pressed");
   }
