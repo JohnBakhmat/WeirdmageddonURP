@@ -34,6 +34,34 @@ MonoBehaviour:
     m_Localized: Go back
     m_Metadata:
       m_Items: []
+  - m_Id: 737036371189760
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737231150473216
+    m_Localized: Full Screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739221297389568
+    m_Localized: Video
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739323273502720
+    m_Localized: Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739442215575552
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746825469878272
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746868864147456
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -7,7 +7,7 @@ onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.B655092D" = "st:go"
+	"last_search.B655092D" = "st:yes"
 	"OpenInspectorPreview.B655092D" = "0"
 	"currentGroup.B655092D" = "all"
 }
@@ -66,6 +66,7 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"st:v"
 	"st:main_menu_play"
 	"st:UI/main_menu_play"
 ]

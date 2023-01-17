@@ -31,6 +31,34 @@ MonoBehaviour:
     m_Key: menu_go_back
     m_Metadata:
       m_Items: []
+  - m_Id: 737036371189760
+    m_Key: settings_video_resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 737231150473216
+    m_Key: settings_video_fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739221297389568
+    m_Key: settings_video
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739323273502720
+    m_Key: settings_game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 739442215575552
+    m_Key: settings_audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746825469878272
+    m_Key: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 746868864147456
+    m_Key: no
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
