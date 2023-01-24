@@ -90,6 +90,17 @@ public class PlayerMovement : MonoBehaviour
 
   }
 
+  private void Interact()
+  {
+    var objects = Physics2D.OverlapCircleAll(transform.position, 1.5f, LayerMask.GetMask("Interactable"));
+    var interactable = objects.Length > 0 ? objects[0].GetComponent<Interactable>() : null;
+
+    if (interactable != null && Input.GetKeyDown(KeyCode.E))
+    {
+      interactable.Interact();
+    }
+  }
+
 
   #region Gameloop
 
@@ -104,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
     horizontalInput = Input.GetAxisRaw("Horizontal");
 
     Turn();
+    Interact();
   }
 
   private void FixedUpdate()
