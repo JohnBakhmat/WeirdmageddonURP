@@ -7,10 +7,6 @@ public class Door : Interactable
   [SerializeField] private float _detectRadius = 1.5f;
   [SerializeField] private GameObject _interactionBar = null;
 
-
-  [SerializeField] private float _detectRadius = 1.5f;
-  [SerializeField] private GameObject _interactionBar = null;
-
   private bool _playerIsInRange = false;
 
   public override void Interact()
