@@ -8,10 +8,7 @@ enum FacingDirection
 
 public class PlayerMovement : MonoBehaviour
 {
-
-
   private PlayerState state = new IdleState();
-
   private float horizontalInput;
   private float height = 0f;
   private FacingDirection facingDirection = FacingDirection.Right;
@@ -20,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
   [SerializeField] private Transform groundCheck;
   [SerializeField] private Transform ceilingCheck;
   [SerializeField] private LayerMask groundLayer;
-  [SerializeField] private CapsuleCollider2D collider;
+  [SerializeField] private new CapsuleCollider2D collider;
 
   private bool isGrounded()
   {
@@ -31,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
   {
     return !Physics2D.OverlapCircle(ceilingCheck.position, 0.2f, groundLayer);
   }
-
 
   private void Turn()
   {
@@ -48,10 +44,12 @@ public class PlayerMovement : MonoBehaviour
     var facingMultiplier = (float)facingDirection;
     transform.localScale = new Vector3(facingMultiplier * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
   }
+
   private void ChangeState(PlayerState newState)
   {
     state = newState;
   }
+
   private void Move()
   {
     // If the player can't move, return
@@ -66,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
     rb.velocity = new Vector2(horizontalInput * state.moveSpeed, rb.velocity.y);
   }
+
   private void Crouch()
   {
     if (!state.canCrouch()) return;
@@ -91,12 +90,15 @@ public class PlayerMovement : MonoBehaviour
 
   }
 
+
+  #region Gameloop
+
   void Start()
   {
     this.height = collider.size.y;
   }
 
-  // Loop
+
   void Update()
   {
     horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -108,6 +110,8 @@ public class PlayerMovement : MonoBehaviour
   {
     Move();
     Crouch();
+
   }
 
+  #endregion
 }

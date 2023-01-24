@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : Interactable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  [SerializeField] private bool _isLocked = false;
 
-    // Update is called once per frame
-    void Update()
+  [SerializeField] private bool _isOpen = false;
+
+  private bool _playerIsInRange = false;
+
+  public override void Interact()
+  {
+    Debug.Log("Interacting with door");
+  }
+
+  private void DetectPlayer()
+  {
+    _playerIsInRange = Physics2D.OverlapCircle(transform.position, 1f, LayerMask.GetMask("Player"));
+  }
+
+  private void OnDrawGizmosSelected()
+  {
+    Gizmos.color = Color.cyan;
+    Gizmos.DrawWireSphere(transform.position, 1.5f);
+  }
+
+  private void Update()
+  {
+    DetectPlayer();
+
+    if (_playerIsInRange)
     {
-        
+      Debug.Log("Player is in range");
     }
+  }
 }
