@@ -1,6 +1,3 @@
-using UnityEngine;
-
-
 public interface PlayerState
 {
   bool isVisible();
@@ -43,7 +40,7 @@ public class WalkState : PlayerState
 
 public class RunState : PlayerState
 {
-  public float moveSpeed => 200f;
+  public float moveSpeed => 12f;
 
   public bool isVisible() => true;
   public bool canMove() => true;

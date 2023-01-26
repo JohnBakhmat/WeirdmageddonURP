@@ -62,7 +62,9 @@ public class PlayerMovement : MonoBehaviour
     else if (horizontalInput == 0)
       ChangeState(new IdleState());
 
-    rb.velocity = new Vector2(horizontalInput * state.moveSpeed, rb.velocity.y);
+    var velocity = new Vector2(horizontalInput * state.moveSpeed, rb.velocity.y);
+
+    rb.AddForce(velocity - rb.velocity, ForceMode2D.Impulse);
   }
 
   private void Crouch()
@@ -116,13 +118,13 @@ public class PlayerMovement : MonoBehaviour
 
     Turn();
     Interact();
+    Crouch();
+
   }
 
   private void FixedUpdate()
   {
     Move();
-    Crouch();
-
   }
 
   #endregion

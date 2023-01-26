@@ -2,32 +2,35 @@ using UnityEngine;
 
 public class Door : Interactable
 {
-  [SerializeField] private bool _isLocked = false;
-  [SerializeField] private bool _isOpen = false;
-  [SerializeField] private float _detectRadius = 1.5f;
-  [SerializeField] private GameObject _interactionBar = null;
+  [SerializeField] bool _isLocked = false;
+  [SerializeField] bool _isOpen = false;
+  [SerializeField] float _detectRadius = 1.5f;
+  [SerializeField] GameObject _interactionBar;
+  [SerializeField] GameObject _lock;
 
-  private bool _playerIsInRange = false;
+
+
+  bool _playerIsInRange = false;
 
   public override void Interact()
   {
-    Debug.Log("Interacting with door");
+    _isLocked = !_isLocked;
   }
 
-  private void DetectPlayer()
+  void DetectPlayer()
   {
     _playerIsInRange = Physics2D.OverlapCircle(transform.position, _detectRadius, LayerMask.GetMask("Player"));
 
     _interactionBar.SetActive(_playerIsInRange);
   }
 
-  private void OnDrawGizmosSelected()
+  void OnDrawGizmosSelected()
   {
     Gizmos.color = Color.cyan;
     Gizmos.DrawWireSphere(transform.position, _detectRadius);
   }
 
-  private void Update()
+  void Update()
   {
     DetectPlayer();
 
@@ -35,5 +38,16 @@ public class Door : Interactable
     {
       Debug.Log("Player is in range");
     }
+
+    _lock.SetActive(_isLocked);
+  }
+
+
+  void Start()
+  {
+    _lock.SetActive(_isLocked);
   }
 }
+
+
+
