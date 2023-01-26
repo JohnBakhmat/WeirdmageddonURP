@@ -10,8 +10,9 @@ public class ResolutionSetting : MonoBehaviour
   [SerializeField] private TextMeshPro resolutionText;
 
 
-  void Start(){
-    
+  void Start()
+  {
+
     var currentRes = Screen.currentResolution;
     SetResolution(new Resolution(currentRes.width, currentRes.height));
 
@@ -22,6 +23,24 @@ public class ResolutionSetting : MonoBehaviour
     }
   }
 
+
+
+
+  void Update()
+  {
+    var index = resolutions.IndexOf(curRes);
+
+    if (Input.GetKeyDown(KeyCode.LeftArrow) && index > 0)
+    {
+      SetResolution(resolutions[index - 1]);
+    }
+
+    if (Input.GetKeyDown(KeyCode.RightArrow) && index < resolutions.Count - 1)
+    {
+      SetResolution(resolutions[index + 1]);
+    }
+  }
+
   private void SetResolution(Resolution res)
   {
     curRes = res;
@@ -29,35 +48,21 @@ public class ResolutionSetting : MonoBehaviour
     Screen.SetResolution(res.Width, res.Height, Screen.fullScreen);
   }
 
+  private class Resolution
+  {
+    public int Width { get; set; }
+    public int Height { get; set; }
 
-  void Update(){
-
-    if (Input.GetKeyDown(KeyCode.LeftArrow) &&  resolutions.IndexOf(curRes) > 0)
+    public Resolution(int width, int height)
     {
-        SetResolution(resolutions[index - 1]);
+      Width = width;
+      Height = height;
     }
 
-    if (Input.GetKeyDown(KeyCode.RightArrow) 
-        && resolutions.IndexOf(curRes)< resolutions.Count - 1)
+    public override string ToString()
     {
-        SetResolution(resolutions[index + 1]);
+      return Width + "x" + Height;
     }
   }
 }
 
-class Resolution
-{
-  public int Width { get; set; }
-  public int Height { get; set; }
-
-  public Resolution(int width, int height)
-  {
-    Width = width;
-    Height = height;
-  }
-
-  public override string ToString()
-  {
-    return Width + "x" + Height;
-  }
-}
