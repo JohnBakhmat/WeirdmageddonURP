@@ -32,22 +32,15 @@ public class ResolutionSetting : MonoBehaviour
 
   void Update(){
 
-    if (Input.GetKeyDown(KeyCode.LeftArrow))
+    if (Input.GetKeyDown(KeyCode.LeftArrow) &&  resolutions.IndexOf(curRes) > 0)
     {
-      var index = resolutions.IndexOf(curRes);
-      if (index > 0)
-      {
         SetResolution(resolutions[index - 1]);
-      }
     }
 
-    if (Input.GetKeyDown(KeyCode.RightArrow))
+    if (Input.GetKeyDown(KeyCode.RightArrow) 
+        && resolutions.IndexOf(curRes)< resolutions.Count - 1)
     {
-      var index = resolutions.IndexOf(curRes);
-      if (index < resolutions.Count - 1)
-      {
         SetResolution(resolutions[index + 1]);
-      }
     }
   }
 }
