@@ -702,6 +702,7 @@ GameObject:
   - component: {fileID: 1482772627}
   - component: {fileID: 1482772626}
   - component: {fileID: 1482772629}
+  - component: {fileID: 1482772630}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -929,6 +930,22 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &1482772630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482772623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912d2696d6ff0fb409230afc46a9a750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 1482772627}
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 0, g: 0.5688889, b: 0.5688889, a: 1}
+  _sceneName: SettingsMenu
 --- !u!1 &1588230263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,6 +1216,7 @@ GameObject:
   - component: {fileID: 1632303682}
   - component: {fileID: 1632303681}
   - component: {fileID: 1632303684}
+  - component: {fileID: 1632303685}
   m_Layer: 0
   m_Name: Audio
   m_TagString: Untagged
@@ -1426,6 +1444,22 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &1632303685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632303678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912d2696d6ff0fb409230afc46a9a750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 1632303682}
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  hoverColor: {r: 0, g: 0.5688889, b: 0.5688889, a: 1}
+  _sceneName: SettingsMenu
 --- !u!1 &1861219111
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,7 +1797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912d2696d6ff0fb409230afc46a9a750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMesh: {fileID: 0}
+  textMesh: {fileID: 2116084188}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   hoverColor: {r: 0, g: 0.5688889, b: 0.5688889, a: 1}
   _sceneName: VideoSettingsMenu
