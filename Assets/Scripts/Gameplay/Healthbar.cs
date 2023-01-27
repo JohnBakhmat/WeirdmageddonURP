@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Healthbar : MonoBehaviour
 {
@@ -7,7 +8,8 @@ public class Healthbar : MonoBehaviour
   [SerializeField] private Sprite fill75;
   [SerializeField] private Sprite fill100;
 
-  [SerializeField] private SpriteRenderer spriteRenderer;
+  [SerializeField]
+  private GameObject fill;
 
 
   public int maxHealth = 100;
@@ -15,36 +17,28 @@ public class Healthbar : MonoBehaviour
 
   public bool isAlive => currentHealth > 0;
 
-  public void SetHealth(int health)
+  public void SetHealth(int health) => currentHealth = health;
+
+  public void TakeDamage(int damage)
   {
-    currentHealth = health;
-    UpdateView();
+    if (!isAlive) return;
+
+    SetHealth(currentHealth - damage);
   }
 
-  public void UpdateView()
+
+  public Sprite getSprite(int health) => health switch
   {
-    var sprite = getSprite(currentHealth);
-    spriteRenderer.sprite = sprite;
-
-  }
-
-  public Sprite getSprite(int health)
-  {
-
-    if (health <= 25)
-      return fill25;
-    if (health <= 50)
-      return fill50;
-    if (health <= 75)
-      return fill75;
-    if (health <= 100)
-      return fill100;
-
-    return fill100;
-  }
+    <= 25 => fill25,
+    <= 50 => fill50,
+    <= 75 => fill75,
+    <= 100 => fill100,
+    _ => fill100
+  };
 
   void Update()
   {
-    UpdateView();
+    fill.GetComponent<Image>().sprite = getSprite(currentHealth);
+    fill.GetComponent<Transform>().localScale = new Vector3(currentHealth / 100f, 1, 1);
   }
 }

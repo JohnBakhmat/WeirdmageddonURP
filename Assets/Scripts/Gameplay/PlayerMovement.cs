@@ -8,28 +8,32 @@ enum FacingDirection
 
 public class PlayerMovement : MonoBehaviour
 {
-  private PlayerState state = new IdleState();
-  private float horizontalInput;
-  private float height = 0f;
-  private FacingDirection facingDirection = FacingDirection.Right;
+  PlayerState state = new IdleState();
+  float horizontalInput;
+  float height = 0f;
+  FacingDirection facingDirection = FacingDirection.Right;
 
-  [SerializeField] private Rigidbody2D rb;
-  [SerializeField] private Transform groundCheck;
-  [SerializeField] private Transform ceilingCheck;
-  [SerializeField] private LayerMask groundLayer;
-  [SerializeField] private new CapsuleCollider2D collider;
+  [SerializeField] Rigidbody2D rb;
+  [SerializeField] Transform groundCheck;
+  [SerializeField] Transform ceilingCheck;
+  [SerializeField] LayerMask groundLayer;
+  [SerializeField] new CapsuleCollider2D collider;
+  [SerializeField] Healthbar healthbar;
 
-  private bool isGrounded()
+  void TakeDamage(int damage) => healthbar.TakeDamage(damage);
+
+
+  bool isGrounded()
   {
     return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
   }
 
-  private bool canUncrouch()
+  bool canUncrouch()
   {
     return !Physics2D.OverlapCircle(ceilingCheck.position, 0.2f, groundLayer);
   }
 
-  private void Turn()
+  void Turn()
   {
     switch (horizontalInput)
     {
@@ -45,12 +49,12 @@ public class PlayerMovement : MonoBehaviour
     transform.localScale = new Vector3(facingMultiplier * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
   }
 
-  private void ChangeState(PlayerState newState)
+  void ChangeState(PlayerState newState)
   {
     state = newState;
   }
 
-  private void Move()
+  void Move()
   {
     // If the player can't move, return
     if (!state.canMove()) return;
@@ -67,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
     rb.AddForce(velocity - rb.velocity, ForceMode2D.Impulse);
   }
 
-  private void Crouch()
+  void Crouch()
   {
     if (!state.canCrouch()) return;
 
@@ -92,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
 
   }
 
-  private void Interact()
+  void Interact()
   {
     var objects = Physics2D.OverlapCircleAll(transform.position, 1.5f, LayerMask.GetMask("Interactable"));
     var interactable = objects.Length > 0 ? objects[0].GetComponent<Interactable>() : null;
@@ -120,9 +124,13 @@ public class PlayerMovement : MonoBehaviour
     Interact();
     Crouch();
 
+    if (Input.GetKeyDown(KeyCode.U))
+    {
+      TakeDamage(10);
+    }
   }
 
-  private void FixedUpdate()
+  void FixedUpdate()
   {
     Move();
   }
