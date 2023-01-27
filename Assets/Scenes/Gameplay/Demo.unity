@@ -1555,6 +1555,8 @@ MonoBehaviour:
     m_Bits: 64
   collider: {fileID: 1302033121}
   healthbar: {fileID: 1112761138}
+  verticalKnockback: 0.73
+  horizontalKnockback: 6.66
 --- !u!1 &1453468853
 GameObject:
   m_ObjectHideFlags: 0
