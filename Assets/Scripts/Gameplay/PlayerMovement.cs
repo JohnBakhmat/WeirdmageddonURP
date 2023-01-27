@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
   [SerializeField] LayerMask groundLayer;
   [SerializeField] new CapsuleCollider2D collider;
   [SerializeField] Healthbar healthbar;
+  [SerializeField] float verticalKnockback = 0.73f;
+  [SerializeField] float horizontalKnockback = 0.73f;
 
   void TakeDamage(int damage) => healthbar.TakeDamage(damage);
 
@@ -108,13 +110,29 @@ public class PlayerMovement : MonoBehaviour
   }
 
 
+  void TouchTheEnemy()
+  {
+
+    var mask = LayerMask.GetMask("Enemy");
+
+    if (!collider.IsTouchingLayers(mask)) return;
+
+    var enemy = Physics2D.OverlapCircle(transform.position, 1.5f, mask)
+    .GetComponent<Transform>();
+
+    var directionVec = (enemy.position - transform.position).normalized;
+    var direction = directionVec.x > 0 ? FacingDirection.Right : FacingDirection.Left;
+
+    rb.AddForce(new Vector2(horizontalKnockback * (float)direction, verticalKnockback) - rb.velocity, ForceMode2D.Impulse);
+  }
+
+
   #region Gameloop
 
   void Start()
   {
     this.height = collider.size.y;
   }
-
 
   void Update()
   {
@@ -123,11 +141,9 @@ public class PlayerMovement : MonoBehaviour
     Turn();
     Interact();
     Crouch();
+    TouchTheEnemy();
 
-    if (Input.GetKeyDown(KeyCode.U))
-    {
-      TakeDamage(10);
-    }
+
   }
 
   void FixedUpdate()
