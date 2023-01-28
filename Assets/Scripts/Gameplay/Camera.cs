@@ -2,14 +2,27 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
-  public Transform player;
-  public float smoothSpeed = 0.0f;
-  public Vector3 offset;
+  [SerializeField] Transform player;
+  [SerializeField] float smoothSpeed;
+  [SerializeField] Vector3 offset;
 
-  void FixedUpdate()
+  public void MoveTo(Vector3 position)
   {
-    Vector3 desiredPosition = player.position + offset;
-    Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+
+    var desiredPosition = position + offset;
+    var smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
     transform.position = smoothedPosition;
   }
+
+  public void TeleportTo(Vector3 position)
+  {
+    transform.position = position + offset;
+  }
+
+  void Update()
+  {
+    MoveTo(player.position);
+  }
+
+
 }
