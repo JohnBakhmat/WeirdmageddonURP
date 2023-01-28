@@ -43,9 +43,11 @@ public class Door : Interactable
     }
   }
 
+
+
   void DetectPlayer()
   {
-    _playerIsInRange = Physics2D.OverlapCircle(transform.position, _detectRadius, LayerMask.GetMask("Player"));
+    _playerIsInRange = base.IsPlayerInRadius(_detectRadius);
 
     _interactionBar.SetActive(_playerIsInRange);
   }
@@ -60,17 +62,6 @@ public class Door : Interactable
   {
     DetectPlayer();
 
-    if (_playerIsInRange)
-    {
-      Debug.Log("Player is in range");
-    }
-
-    _lock.SetActive(_isLocked);
-  }
-
-
-  void Start()
-  {
     _lock.SetActive(_isLocked);
   }
 }

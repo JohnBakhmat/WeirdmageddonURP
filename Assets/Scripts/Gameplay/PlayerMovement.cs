@@ -109,7 +109,6 @@ public class PlayerMovement : MonoBehaviour
     }
   }
 
-
   void TouchTheEnemy()
   {
 
