@@ -18,6 +18,8 @@ public class DialogueManager : MonoBehaviour
 
   public void StartDialogue(Dialogue dialogue)
   {
+    if (_isDialogueActive) return;
+
     _sentences = new Queue<DialogueSentence>(dialogue.sentences);
     _isDialogueActive = true;
     DisplayNextSentence();

@@ -19,6 +19,11 @@ class DialogueDemoButton : Interactable
     var playerIsInRange = base.IsPlayerInRadius(_detectRadius);
 
     _interactionBar.SetActive(playerIsInRange);
+
+    if (playerIsInRange)
+    {
+      Interact();
+    }
   }
 
   void OnDrawGizmosSelected()
