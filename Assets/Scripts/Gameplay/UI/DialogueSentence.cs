@@ -1,6 +1,10 @@
+using UnityEngine;
+
 [System.Serializable]
 public class DialogueSentence
 {
   public string narrator;
-  public string[] sentences;
+
+  [TextArea(3, 10)]
+  public string sentence;
 }
