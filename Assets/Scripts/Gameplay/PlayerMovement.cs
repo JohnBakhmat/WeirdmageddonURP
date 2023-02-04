@@ -8,19 +8,23 @@ enum FacingDirection
 
 public class PlayerMovement : MonoBehaviour
 {
-  PlayerState state = new IdleState();
-  float horizontalInput;
-  float height = 0f;
-  FacingDirection facingDirection = FacingDirection.Right;
+  private PlayerState state = new IdleState();
+  private float horizontalInput;
+  private float verticalInput;
+  private float height = 0f;
+  private FacingDirection facingDirection = FacingDirection.Right;
 
-  [SerializeField] Rigidbody2D rb;
-  [SerializeField] Transform groundCheck;
-  [SerializeField] Transform ceilingCheck;
-  [SerializeField] LayerMask groundLayer;
-  [SerializeField] new CapsuleCollider2D collider;
-  [SerializeField] Healthbar healthbar;
-  [SerializeField] float verticalKnockback = 0.73f;
-  [SerializeField] float horizontalKnockback = 0.73f;
+  [SerializeField] private Rigidbody2D rb;
+  [SerializeField] private Transform groundCheck;
+  [SerializeField] private Transform ceilingCheck;
+  [SerializeField] private LayerMask groundLayer;
+  [SerializeField] private new CapsuleCollider2D collider;
+  [SerializeField] private Healthbar healthbar;
+
+  [Header("Floats")]
+  [SerializeField] private float verticalKnockback = 0.73f;
+  [SerializeField] private float horizontalKnockback = 0.73f;
+  [SerializeField] private float jumpForce = 5f;
 
   void TakeDamage(int damage) => healthbar.TakeDamage(damage);
 
@@ -54,6 +58,17 @@ public class PlayerMovement : MonoBehaviour
   void ChangeState(PlayerState newState)
   {
     state = newState;
+  }
+
+  void Jump()
+  {
+    if (!state.canJump() || !isGrounded()) return;
+
+    if (verticalInput > 0)
+    {
+      rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+    }
+
   }
 
   void Move()
@@ -126,6 +141,8 @@ public class PlayerMovement : MonoBehaviour
   }
 
 
+
+
   #region Gameloop
 
   void Start()
@@ -136,6 +153,7 @@ public class PlayerMovement : MonoBehaviour
   void Update()
   {
     horizontalInput = Input.GetAxisRaw("Horizontal");
+    verticalInput = Input.GetAxisRaw("Vertical");
 
     Turn();
     Interact();
@@ -148,7 +166,9 @@ public class PlayerMovement : MonoBehaviour
   void FixedUpdate()
   {
     Move();
+    Jump();
   }
+
 
   #endregion
 }
