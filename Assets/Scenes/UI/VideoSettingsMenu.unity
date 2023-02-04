@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 5297528}
   - component: {fileID: 5297530}
   - component: {fileID: 5297529}
+  - component: {fileID: 5297531}
   m_Layer: 0
   m_Name: Left Arrow
   m_TagString: Untagged
@@ -239,6 +240,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5297531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5297527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d6af666e64ae94db5b83103e2ba5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 0
+  target: {fileID: 1869544619}
 --- !u!1 &103229725
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,9 +263,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 103229726}
-  - component: {fileID: 103229729}
   - component: {fileID: 103229728}
   - component: {fileID: 103229727}
+  - component: {fileID: 103229729}
   m_Layer: 0
   m_Name: Right Arrow
   m_TagString: Untagged
@@ -356,14 +371,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!222 &103229729
-CanvasRenderer:
+--- !u!114 &103229729
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103229725}
-  m_CullTransparentMesh: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d6af666e64ae94db5b83103e2ba5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
+  target: {fileID: 1869544619}
 --- !u!1 &225710048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,7 +1051,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793776da7faef499bb4852828b2d5191, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionText: {fileID: 1075313388}
+  options: []
+  label: {fileID: 1075313388}
 --- !u!1 &1181377598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1040,9 +1062,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1181377599}
-  - component: {fileID: 1181377602}
   - component: {fileID: 1181377601}
   - component: {fileID: 1181377600}
+  - component: {fileID: 1181377603}
   m_Layer: 0
   m_Name: Right Arrow
   m_TagString: Untagged
@@ -1148,14 +1170,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!222 &1181377602
-CanvasRenderer:
+--- !u!114 &1181377603
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181377598}
-  m_CullTransparentMesh: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d6af666e64ae94db5b83103e2ba5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
+  target: {fileID: 1075313385}
 --- !u!1 &1255858441
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,6 +2029,7 @@ GameObject:
   - component: {fileID: 1853915447}
   - component: {fileID: 1853915449}
   - component: {fileID: 1853915448}
+  - component: {fileID: 1853915450}
   m_Layer: 0
   m_Name: Left Arrow
   m_TagString: Untagged
@@ -2106,6 +2135,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1853915450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853915446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d6af666e64ae94db5b83103e2ba5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 0
+  target: {fileID: 1075313385}
 --- !u!1 &1861219111
 GameObject:
   m_ObjectHideFlags: 0
@@ -2202,6 +2245,7 @@ GameObject:
   - component: {fileID: 1869544623}
   - component: {fileID: 1869544622}
   - component: {fileID: 1869544621}
+  - component: {fileID: 1869544624}
   m_Layer: 0
   m_Name: SliderLabel
   m_TagString: Untagged
@@ -2236,7 +2280,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869544619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
   m_Name: 
@@ -2403,6 +2447,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1869544624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869544619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 026571e6dabac7b40b47849802f8c860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  options: []
+  label: {fileID: 1869544622}
 --- !u!1 &1874100943
 GameObject:
   m_ObjectHideFlags: 0

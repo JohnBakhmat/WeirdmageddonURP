@@ -7,14 +7,26 @@ public class FullscreenSetting : Slider
   {
     curOption = option;
     label.text = curOption;
-    Screen.fullScreenMode = (FullScreenMode)options.IndexOf(option);
+
+    switch (option)
+    {
+      case "FullScreen":
+        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        break;
+      case "Borderless":
+        Screen.fullScreenMode = FullScreenMode.MaximizedWindow;
+        break;
+      case "Windowed":
+        Screen.fullScreenMode = FullScreenMode.Windowed;
+        break;
+    }
   }
 
   private void Start()
   {
-    options.Add("Windowed");
+    options.Add("FullScreen");
     options.Add("Borderless");
-    options.Add("Fullscreen");
-    SetOption(options[(int)Screen.fullScreenMode]);
+    options.Add("Windowed");
+    SetOption(options[0]);
   }
 }
