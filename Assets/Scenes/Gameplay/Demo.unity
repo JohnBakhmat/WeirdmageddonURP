@@ -1989,19 +1989,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1302033120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b89292459946584bbb2974bc46d749b, type: 3}
+  m_Script: {fileID: 11500000, guid: 30e15d72bb84d0846a40d1bfdbc5e09f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalInput: 0
+  verticalInput: 0
+  height: 0
+  facingDirection: 1
   rb: {fileID: 1302033123}
   groundCheck: {fileID: 160401325}
   ceilingCheck: {fileID: 1989521764}
   groundLayer:
-    serializedVersion: 2
     m_Bits: 64
   collider: {fileID: 1302033121}
   healthbar: {fileID: 1112761138}
   verticalKnockback: 0.73
   horizontalKnockback: 6.66
+  jumpForce: 5
 --- !u!1 &1344949707
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ enum FacingDirection
   Right = 1
 }
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
   private PlayerState state = new IdleState();
   private float horizontalInput;
