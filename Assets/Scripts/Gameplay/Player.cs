@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
   [SerializeField] private LayerMask groundLayer;
   [SerializeField] private new CapsuleCollider2D collider;
   [SerializeField] private Healthbar healthbar;
+  [SerializeField] private Animator animator;
+
 
   [Header("Floats")]
   [SerializeField] private float verticalKnockback = 0.73f;
@@ -86,6 +88,13 @@ public class Player : MonoBehaviour
     var velocity = new Vector2(horizontalInput * state.moveSpeed, rb.velocity.y);
 
     rb.AddForce(velocity - rb.velocity, ForceMode2D.Impulse);
+
+
+
+    if (state is RunState)
+      animator.SetBool("isRunning", true);
+    else
+      animator.SetBool("isRunning", false);
   }
 
   void Crouch()
@@ -148,6 +157,12 @@ public class Player : MonoBehaviour
   void Start()
   {
     this.height = collider.size.y;
+
+    animator = GetComponent<Animator>();
+    rb = GetComponent<Rigidbody2D>();
+    groundCheck = transform.Find("GroundCheck");
+    ceilingCheck = transform.Find("CeilingCheck");
+    collider = GetComponent<CapsuleCollider2D>();
   }
 
   void Update()
