@@ -2,19 +2,27 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-  public abstract void Interact();
+  public abstract void Interact(Player player);
 
-  public bool IsPlayerInRadius(float radius) =>
+  public float detectRadius = 0.5f;
+  public GameObject interactionBar;
+
+  public bool IsPlayerInRadius() =>
       Physics2D
       .OverlapCircle(
         transform.position,
-        radius,
+        detectRadius,
         LayerMask.GetMask("Player"))
          != null;
 
   void Start()
   {
-    // autoassign interactable layer
     gameObject.layer = LayerMask.NameToLayer("Interactable");
+  }
+
+  void OnDrawGizmosSelected()
+  {
+    Gizmos.color = Color.cyan;
+    Gizmos.DrawWireSphere(transform.position, detectRadius);
   }
 }

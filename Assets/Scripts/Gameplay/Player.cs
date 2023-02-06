@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 enum FacingDirection
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
   private float verticalInput;
   private float height = 0f;
   private FacingDirection facingDirection = FacingDirection.Right;
+  private List<Item> inventory = new List<Item>();
 
   [SerializeField] private Rigidbody2D rb;
   [SerializeField] private Transform groundCheck;
@@ -27,19 +29,15 @@ public class Player : MonoBehaviour
   [SerializeField] private float verticalKnockback = 0.73f;
   [SerializeField] private float horizontalKnockback = 0.73f;
   [SerializeField] private float jumpForce = 5f;
+  [SerializeField] private int inventorySize = 1;
+
 
   void TakeDamage(int damage) => healthbar.TakeDamage(damage);
 
 
-  bool isGrounded()
-  {
-    return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-  }
+  bool isGrounded => Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
-  bool canUncrouch()
-  {
-    return !Physics2D.OverlapCircle(ceilingCheck.position, 0.2f, groundLayer);
-  }
+  bool canUncrouch => !Physics2D.OverlapCircle(ceilingCheck.position, 0.2f, groundLayer);
 
   void Turn()
   {
@@ -57,14 +55,11 @@ public class Player : MonoBehaviour
     transform.localScale = new Vector3(facingMultiplier * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
   }
 
-  void ChangeState(PlayerState newState)
-  {
-    state = newState;
-  }
+  void ChangeState(PlayerState newState) => state = newState;
 
   void Jump()
   {
-    if (!state.canJump() || !isGrounded()) return;
+    if (!state.canJump() || !isGrounded) return;
 
     if (verticalInput > 0)
     {
@@ -102,7 +97,7 @@ public class Player : MonoBehaviour
     if (!state.canCrouch()) return;
 
 
-    if (Input.GetKey(KeyCode.LeftControl) && isGrounded())
+    if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
     {
       ChangeState(new CrouchState());
       collider.size = new Vector2(collider.size.x, height / 2);
@@ -110,7 +105,7 @@ public class Player : MonoBehaviour
     }
 
 
-    if (!canUncrouch()) return;
+    if (!canUncrouch) return;
 
     //Uncrouch
     if (!Input.GetKey(KeyCode.LeftControl))
@@ -126,10 +121,12 @@ public class Player : MonoBehaviour
   {
     var objects = Physics2D.OverlapCircleAll(transform.position, 1.5f, LayerMask.GetMask("Interactable"));
     var interactable = objects.Length > 0 ? objects[0].GetComponent<Interactable>() : null;
+    if (interactable == null) return;
 
-    if (interactable != null && Input.GetKeyDown(KeyCode.E))
+
+    if (Input.GetKeyDown(KeyCode.E))
     {
-      interactable.Interact();
+      interactable.Interact(this);
     }
   }
 
@@ -149,7 +146,13 @@ public class Player : MonoBehaviour
     rb.AddForce(new Vector2(horizontalKnockback * (float)direction, verticalKnockback) - rb.velocity, ForceMode2D.Impulse);
   }
 
+  public void PickUpItem(Item item)
+  {
+    if (inventory.Count >= inventorySize) return;
 
+    inventory.Add(item);
+
+  }
 
 
   #region Gameloop
@@ -176,6 +179,11 @@ public class Player : MonoBehaviour
     TouchTheEnemy();
 
 
+    if (inventory.Count > 0)
+    {
+      Debug.Log(inventory);
+    }
+
   }
 
   void FixedUpdate()
@@ -183,6 +191,8 @@ public class Player : MonoBehaviour
     Move();
     Jump();
   }
+
+
 
 
   #endregion

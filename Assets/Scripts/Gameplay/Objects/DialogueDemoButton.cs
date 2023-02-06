@@ -2,34 +2,30 @@ using UnityEngine;
 
 class DialogueDemoButton : Interactable
 {
-  [SerializeField] GameObject _interactionBar;
-  [SerializeField] float _detectRadius = 0.5f;
 
   public DialogueTrigger dialogueTrigger;
+  private bool isTriggered = false;
 
-
-  public override void Interact()
+  public override void Interact(Player player)
   {
-    Debug.Log("Interacted with DialogueDemoButton");
     dialogueTrigger.Trigger();
   }
 
   void DetectPlayer()
   {
-    var playerIsInRange = base.IsPlayerInRadius(_detectRadius);
+    var playerIsInRange = base.IsPlayerInRadius();
 
-    _interactionBar.SetActive(playerIsInRange);
+    interactionBar.SetActive(playerIsInRange);
 
     if (playerIsInRange)
     {
-      Interact();
+      Interact(GameObject.Find("Player").GetComponent<Player>());
+      isTriggered = true;
     }
-  }
-
-  void OnDrawGizmosSelected()
-  {
-    Gizmos.color = Color.cyan;
-    Gizmos.DrawWireSphere(transform.position, _detectRadius);
+    else
+    {
+      isTriggered = false;
+    }
   }
 
 

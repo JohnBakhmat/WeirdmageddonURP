@@ -4,22 +4,20 @@ public class Door : Interactable
 {
   [SerializeField] bool _isLocked = false;
   [SerializeField] bool _isOpen = false;
-  [SerializeField] float _detectRadius = 1.5f;
-  [SerializeField] GameObject _interactionBar;
+
+
   [SerializeField] GameObject _lock;
   [SerializeField] GameObject linkedDoor;
 
 
   bool _playerIsInRange = false;
 
-  public override void Interact()
+  public override void Interact(Player player)
   {
     if (!_isLocked)
     {
       var outDoor = linkedDoor.GetComponent<Door>();
       if (outDoor == null) return;
-      var player = GameObject.Find("Player");
-
 
       //z is the same as the current z
 
@@ -44,19 +42,11 @@ public class Door : Interactable
   }
 
 
-
   void DetectPlayer()
   {
-    _playerIsInRange = base.IsPlayerInRadius(_detectRadius);
-
-    _interactionBar.SetActive(_playerIsInRange);
+    interactionBar.SetActive(base.IsPlayerInRadius());
   }
 
-  void OnDrawGizmosSelected()
-  {
-    Gizmos.color = Color.cyan;
-    Gizmos.DrawWireSphere(transform.position, _detectRadius);
-  }
 
   void Update()
   {
