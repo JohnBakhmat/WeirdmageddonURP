@@ -52,7 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ae4ddaf6a3b6f4d9e6e599848497d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSlotPrefab: {fileID: 6699224656504634109}
+  inventory: []
+  slot: {fileID: 6699224656504634109}
+  emptyColor: {r: 0.13333334, g: 0.1254902, b: 0.20392159, a: 1}
 --- !u!1 &2986747744016667793
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1254902, g: 0.18901396, b: 0.2, a: 1}
+  m_Color: {r: 0.13828725, g: 0.20392157, b: 0.1254902, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
