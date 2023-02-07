@@ -24,7 +24,7 @@ public class InventoryUI : MonoBehaviour
     }
 
     image.color = Color.white;
-    image.sprite = inventory[0].sprite;
+    image.sprite = inventory[0].icon;
   }
 
   private void Start()
