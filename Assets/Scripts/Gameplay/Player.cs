@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
   [SerializeField] private new CapsuleCollider2D collider;
   [SerializeField] private Healthbar healthbar;
   [SerializeField] private Animator animator;
-
+  [SerializeField] private InventoryUI inventoryUI;
 
   [Header("Floats")]
   [SerializeField] private float verticalKnockback = 0.73f;
@@ -151,7 +151,7 @@ public class Player : MonoBehaviour
     if (inventory.Count >= inventorySize) return;
 
     inventory.Add(item);
-
+    inventoryUI.SetInventory(inventory);
   }
 
 
@@ -177,13 +177,6 @@ public class Player : MonoBehaviour
     Interact();
     Crouch();
     TouchTheEnemy();
-
-
-    if (inventory.Count > 0)
-    {
-      Debug.Log(inventory);
-    }
-
   }
 
   void FixedUpdate()

@@ -24,5 +24,9 @@ public class Camera : MonoBehaviour
     MoveTo(player.position);
   }
 
+  void Start()
+  {
+    TeleportTo(player.position);
+  }
 
 }
