@@ -20,6 +20,17 @@ public abstract class Interactable : MonoBehaviour
     gameObject.layer = LayerMask.NameToLayer("Interactable");
   }
 
+  protected virtual void DetectPlayer()
+  {
+    interactionBar.SetActive(IsPlayerInRadius());
+  }
+
+  protected virtual void Update()
+  {
+    DetectPlayer();
+  }
+
+
   void OnDrawGizmosSelected()
   {
     Gizmos.color = Color.cyan;

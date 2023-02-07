@@ -11,11 +11,11 @@ class DialogueDemoButton : Interactable
     dialogueTrigger.Trigger();
   }
 
-  void DetectPlayer()
+  protected override void DetectPlayer()
   {
-    var playerIsInRange = base.IsPlayerInRadius();
+    base.DetectPlayer();
 
-    interactionBar.SetActive(playerIsInRange);
+    var playerIsInRange = base.IsPlayerInRadius();
 
     if (playerIsInRange)
     {
@@ -29,8 +29,9 @@ class DialogueDemoButton : Interactable
   }
 
 
-  void Update()
+  protected override void Update()
   {
+    base.Update();
     DetectPlayer();
   }
 

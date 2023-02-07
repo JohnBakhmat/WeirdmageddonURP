@@ -42,16 +42,9 @@ public class Door : Interactable
   }
 
 
-  void DetectPlayer()
+  protected override void Update()
   {
-    interactionBar.SetActive(base.IsPlayerInRadius());
-  }
-
-
-  void Update()
-  {
-    DetectPlayer();
-
+    base.Update();
     _lock.SetActive(_isLocked);
   }
 }
