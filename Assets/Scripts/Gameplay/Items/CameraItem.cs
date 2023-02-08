@@ -3,11 +3,6 @@ using UnityEngine;
 public class CameraItem : Item
 {
 
-  public override void Use()
-  {
-    Debug.Log("CameraItem used");
-  }
-
   public override void Drop()
   {
     Debug.Log("CameraItem dropped");
@@ -18,4 +13,17 @@ public class CameraItem : Item
     base.Interact(player);
     Debug.Log("CameraItem picked up");
   }
+
+  public override bool Use(Player player)
+  {
+    if (!base.Use(player)) return false;
+
+    // Do something with the camera
+    Debug.Log("CameraItem used");
+
+    return true;
+  }
+
+
+
 }

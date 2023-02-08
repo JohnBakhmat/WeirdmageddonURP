@@ -7,6 +7,7 @@ public class InventoryUI : MonoBehaviour
   [SerializeField] private List<Item> inventory = new List<Item>();
   [SerializeField] private GameObject slot;
   [SerializeField] private Color emptyColor = Color.HSVToRGB(246, 38, 20);
+  [SerializeField] private Color fullColor = Color.white;
 
   private Image image;
 
@@ -22,9 +23,19 @@ public class InventoryUI : MonoBehaviour
       image.color = emptyColor;
       return;
     }
+    var item = inventory[0];
 
-    image.color = Color.white;
-    image.sprite = inventory[0].icon;
+    if (item.IsOnCooldown)
+    {
+      var cooldown = item.cooldownTimer / item.cooldownTime;
+      image.color = Color.Lerp(emptyColor, fullColor, cooldown);
+    }
+    else
+    {
+      image.color = fullColor;
+    }
+
+    image.sprite = item.icon;
   }
 
   private void Start()

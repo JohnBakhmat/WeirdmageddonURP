@@ -32,14 +32,14 @@ public class Player : MonoBehaviour
   [SerializeField] private int inventorySize = 1;
 
 
-  void TakeDamage(int damage) => healthbar.TakeDamage(damage);
+  private void TakeDamage(int damage) => healthbar.TakeDamage(damage);
 
 
-  bool isGrounded => Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+  private bool isGrounded => Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 
-  bool canUncrouch => !Physics2D.OverlapCircle(ceilingCheck.position, 0.2f, groundLayer);
+  private bool canUncrouch => !Physics2D.OverlapCircle(ceilingCheck.position, 0.2f, groundLayer);
 
-  void Turn()
+  private void Turn()
   {
     switch (horizontalInput)
     {
@@ -55,9 +55,9 @@ public class Player : MonoBehaviour
     transform.localScale = new Vector3(facingMultiplier * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
   }
 
-  void ChangeState(PlayerState newState) => state = newState;
+  private void ChangeState(PlayerState newState) => state = newState;
 
-  void Jump()
+  private void Jump()
   {
     if (!state.canJump() || !isGrounded) return;
 
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
 
   }
 
-  void Move()
+  private void Move()
   {
     // If the player can't move, return
     if (!state.canMove()) return;
@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
       animator.SetBool("isRunning", false);
   }
 
-  void Crouch()
+  private void Crouch()
   {
     if (!state.canCrouch()) return;
 
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
 
   }
 
-  void Interact()
+  private void Interact()
   {
     var objects = Physics2D.OverlapCircleAll(transform.position, 1.5f, LayerMask.GetMask("Interactable"));
     var interactable = objects.Length > 0 ? objects[0].GetComponent<Interactable>() : null;
@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
     }
   }
 
-  void TouchTheEnemy()
+  private void TouchTheEnemy()
   {
 
     var mask = LayerMask.GetMask("Enemy");
@@ -154,10 +154,19 @@ public class Player : MonoBehaviour
     inventoryUI.SetInventory(inventory);
   }
 
+  public void UseItem()
+  {
+    if (inventory.Count == 0) return;
+    if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
+
+    var item = inventory[0];
+    item.Use(this);
+
+  }
 
   #region Gameloop
 
-  void Start()
+  private void Start()
   {
     this.height = collider.size.y;
 
@@ -168,7 +177,7 @@ public class Player : MonoBehaviour
     collider = GetComponent<CapsuleCollider2D>();
   }
 
-  void Update()
+  private void Update()
   {
     horizontalInput = Input.GetAxisRaw("Horizontal");
     verticalInput = Input.GetAxisRaw("Vertical");
@@ -177,9 +186,10 @@ public class Player : MonoBehaviour
     Interact();
     Crouch();
     TouchTheEnemy();
+    UseItem();
   }
 
-  void FixedUpdate()
+  private void FixedUpdate()
   {
     Move();
     Jump();
