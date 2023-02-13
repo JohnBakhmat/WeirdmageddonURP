@@ -54,7 +54,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: []
   slot: {fileID: 6699224656504634109}
+  border: {fileID: 2986747744016667793}
   emptyColor: {r: 0.13333334, g: 0.1254902, b: 0.20392159, a: 1}
+  fullColor: {r: 1, g: 1, b: 1, a: 1}
+  emptyBorder: {fileID: 21300000, guid: b8e115a2e4c35c0448c40a36da228263, type: 3}
+  fullBorder: {fileID: 21300000, guid: 357ecf566da4edb4cb9385b10da878ee, type: 3}
 --- !u!1 &2986747744016667793
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13828725, g: 0.20392157, b: 0.1254902, a: 1}
+  m_Color: {r: 0.12941177, g: 0.1254902, b: 0.20000002, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
