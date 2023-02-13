@@ -37,7 +37,7 @@ public class Door : Interactable
 
       //move camera too
 
-      GameObject.Find("Main Camera").GetComponent<Camera>().TeleportTo(newPos);
+      GameObject.Find("Main Camera").GetComponent<MainCamera>().TeleportTo(newPos);
     }
   }
 
