@@ -14,16 +14,10 @@ public class CameraItem : Item
     Debug.Log("CameraItem picked up");
   }
 
-  public override bool Use(Player player)
+  protected override void Action(Player player)
   {
-    if (!base.Use(player)) return false;
-
-    // Do something with the camera
     Debug.Log("CameraItem used");
-
-    return true;
   }
-
 
 
 }

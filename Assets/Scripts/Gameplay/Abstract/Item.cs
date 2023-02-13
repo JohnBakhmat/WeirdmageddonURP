@@ -9,15 +9,15 @@ public abstract class Item : Interactable
   public bool IsOnCooldown = false;
 
 
-  public virtual bool Use(Player player)
+  public void Use(Player player)
   {
-    if (IsOnCooldown) return false;
+    if (IsOnCooldown) return;
 
-
+    Action(player);
     IsOnCooldown = true;
-    return true;
-
   }
+
+  protected abstract void Action(Player player);
 
 
 
