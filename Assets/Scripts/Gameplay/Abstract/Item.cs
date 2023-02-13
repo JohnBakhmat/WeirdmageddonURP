@@ -19,8 +19,6 @@ public abstract class Item : Interactable
 
   protected abstract void Action(Player player);
 
-
-
   public abstract void Drop();
 
   public virtual void CoolDown()
@@ -41,12 +39,23 @@ public abstract class Item : Interactable
   {
     player.PickUpItem(this);
 
-    // gameObject.GetComponent<SpriteRenderer>().enabled = false;
+    //Hide object
+    gameObject.GetComponent<SpriteRenderer>().enabled = false;
     gameObject.GetComponent<Collider2D>().enabled = false;
     gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
     gameObject.transform.position = player.transform.position;
-    gameObject.transform.SetParent(player.transform);
+    interactionBar.GetComponent<SpriteRenderer>().enabled = false;
+    Debug.Log(interactionBar);
 
+
+    //Transform to child of player
+    var inventoryObj = player.transform.Find("Inventory");
+    if (inventoryObj == null)
+    {
+      inventoryObj = new GameObject("Inventory").transform;
+      inventoryObj.SetParent(player.transform);
+    }
+    gameObject.transform.SetParent(inventoryObj);
   }
 
   protected override void Update()

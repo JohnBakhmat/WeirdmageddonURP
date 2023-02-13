@@ -14,8 +14,18 @@ public class InventoryUI : MonoBehaviour
   [SerializeField] private Sprite emptyBorder;
   [SerializeField] private Sprite fullBorder;
 
+  private AudioSource audioSource;
   private Image image;
   private Image borderImage;
+
+  private CooldownState currentCooldownState = CooldownState.Ready;
+  private CooldownState previousCooldownState = CooldownState.Ready;
+
+  private enum CooldownState
+  {
+    Ready,
+    Cooldown
+  }
 
   public void SetInventory(List<Item> inventory)
   {
@@ -33,23 +43,32 @@ public class InventoryUI : MonoBehaviour
 
     if (item.IsOnCooldown)
     {
+      currentCooldownState = CooldownState.Cooldown;
       var cooldown = item.cooldownTimer / item.cooldownTime;
       image.color = Color.Lerp(emptyColor, fullColor, cooldown);
       borderImage.sprite = emptyBorder;
     }
     else
     {
+      currentCooldownState = CooldownState.Ready;
       image.color = fullColor;
       borderImage.sprite = fullBorder;
-    }
 
+      if (currentCooldownState != previousCooldownState)
+      {
+        audioSource.Play();
+      }
+    }
     image.sprite = item.icon;
+
+    previousCooldownState = currentCooldownState;
   }
 
   private void Start()
   {
     image = slot.GetComponent<Image>();
     borderImage = border.GetComponent<Image>();
+    audioSource = GetComponent<AudioSource>();
     image.preserveAspect = true;
   }
 }
