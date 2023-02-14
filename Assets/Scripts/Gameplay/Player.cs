@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
     if (!state.canCrouch()) return;
 
 
-    if (Input.GetKey(KeyCode.LeftControl) && isGrounded)
+    if (verticalInput < 0 && isGrounded)
     {
       ChangeState(new CrouchState());
       collider.size = new Vector2(collider.size.x, height / 2);
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
     if (!canUncrouch) return;
 
     //Uncrouch
-    if (!Input.GetKey(KeyCode.LeftControl))
+    if (verticalInput >= 0)
     {
       ChangeState(new IdleState());
       collider.size = new Vector2(collider.size.x, height);

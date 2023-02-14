@@ -18,6 +18,20 @@ public abstract class Interactable : MonoBehaviour
   void Start()
   {
     gameObject.layer = LayerMask.NameToLayer("Interactable");
+
+    if (interactionBar == null)
+    {
+      var existentBar = transform.Find("InteractionBar").gameObject;
+
+      if (existentBar != null)
+        interactionBar = existentBar;
+      else
+      {
+        var newBar = Instantiate(Resources.Load("Prefabs/UI/InteractionUI.prefab")) as GameObject;
+        newBar.transform.SetParent(transform);
+      }
+    }
+
   }
 
   protected virtual void DetectPlayer()
