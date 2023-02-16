@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -11,7 +12,7 @@ public class CameraItem : Item
   }
 
 
-  [SerializeField][Range(0, 180)] private float rayAngle = 20f;
+  [SerializeField][Range(0, 180)] private float rayAngle = 15f;
   [SerializeField][Range(0, 10)] private float rayLength = 5f;
 
   [Header("Light")]
@@ -61,11 +62,45 @@ public class CameraItem : Item
 
     direction = direction.normalized * rayLength;
 
-    var topVector = Quaternion.AngleAxis(rayAngle, Vector3.forward) * direction;
-    var bottomVector = Quaternion.AngleAxis(-rayAngle, Vector3.forward) * direction;
 
     StartCoroutine(FlashCoroutine());
 
+    var topVector = Quaternion.AngleAxis(rayAngle, Vector3.forward) * direction;
+    var bottomVector = Quaternion.AngleAxis(-rayAngle, Vector3.forward) * direction;
+
+    var leftLimit = rayAngle;
+    var rightLimit = -rayAngle;
+
+    var splitWidth = 5f;
+    var rayQantity = rayAngle * 2 / splitWidth;
+
+    var vectors = new List<Vector3>();
+
+    for (var i = 0; i <= rayQantity; i++)
+    {
+      var vector = Quaternion.AngleAxis(splitWidth * i - rayAngle, Vector3.forward) * direction;
+
+      Debug.DrawRay(start, vector, Color.green, 1f);
+      vectors.Add(vector);
+    }
+
+
+    foreach (var vec in vectors)
+    {
+      var hit = Physics2D.Raycast(start, vec, rayLength, LayerMask.GetMask("Walls"));
+
+
+      if (hit.collider != null)
+      {
+        var hitpoint = hit.point;
+
+        var mark = new GameObject("Mark");
+        mark.transform.position = hitpoint;
+        mark.AddComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
+      }
+
+
+    }
 
     // var topRay = Physics2D.Raycast(start, topVector, rayLength, LayerMask.GetMask("Walls"));
     // var bottomRay = Physics2D.Raycast(start, bottomVector, rayLength, LayerMask.GetMask("Walls"));
@@ -82,14 +117,11 @@ public class CameraItem : Item
     //     var mark = new GameObject("Mark");
     //     mark.transform.position = hitpoint;
     //     mark.AddComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
-
     //   }
     // }
 
 
-    // Debug.DrawRay(start, topVector, Color.red, 0.5f);
-    // Debug.DrawRay(start, direction, Color.blue, 0.5f);
-    // Debug.DrawRay(start, bottomVector, Color.red, 0.5f);
+
 
   }
 
