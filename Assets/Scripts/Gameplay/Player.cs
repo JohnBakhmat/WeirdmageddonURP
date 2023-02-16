@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 enum FacingDirection
 {
@@ -59,7 +60,7 @@ public class Player : MonoBehaviour
 
   private void Jump()
   {
-    if (!state.canJump() || !isGrounded) return;
+    if (!state.canJump || !isGrounded) return;
 
     if (verticalInput > 0)
     {
@@ -71,30 +72,17 @@ public class Player : MonoBehaviour
   private void Move()
   {
     // If the player can't move, return
-    if (!state.canMove()) return;
-
-    if (Input.GetKey(KeyCode.LeftShift) && horizontalInput != 0)
-      ChangeState(new RunState());
-    else if (horizontalInput != 0)
-      ChangeState(new WalkState());
-    else if (horizontalInput == 0)
-      ChangeState(new IdleState());
+    if (!state.canMove) return;
 
     var velocity = new Vector2(horizontalInput * state.moveSpeed, rb.velocity.y);
 
     rb.AddForce(velocity - rb.velocity, ForceMode2D.Impulse);
 
-
-
-    if (state is RunState)
-      animator.SetBool("isRunning", true);
-    else
-      animator.SetBool("isRunning", false);
   }
 
   private void Crouch()
   {
-    if (!state.canCrouch()) return;
+    if (!state.canCrouch) return;
 
 
     if (verticalInput < 0 && isGrounded)
@@ -110,7 +98,6 @@ public class Player : MonoBehaviour
     //Uncrouch
     if (verticalInput >= 0)
     {
-      ChangeState(new IdleState());
       collider.size = new Vector2(collider.size.x, height);
       collider.offset = new Vector2(collider.offset.x, 0);
     }
@@ -179,8 +166,14 @@ public class Player : MonoBehaviour
 
   private void Update()
   {
-    horizontalInput = Input.GetAxisRaw("Horizontal");
-    verticalInput = Input.GetAxisRaw("Vertical");
+
+
+    //Debug
+    var stateUi = GameObject.Find("StateUI").GetComponent<TextMeshProUGUI>();
+    stateUi.text = state.ToString() + " " + horizontalInput;
+    // 
+
+
 
     Turn();
     Interact();
@@ -191,12 +184,39 @@ public class Player : MonoBehaviour
 
   private void FixedUpdate()
   {
+    horizontalInput = Input.GetAxisRaw("Horizontal");
+    verticalInput = Input.GetAxisRaw("Vertical");
+
+    HandleStateChange();
     Move();
     Jump();
   }
-
-
-
-
   #endregion
+
+
+  private void HandleStateChange()
+  {
+    PlayerState newState = state;
+    if (horizontalInput != 0)
+    {
+      if (Input.GetKey(KeyCode.LeftShift))
+        newState = new RunningState();
+      else
+        newState = new WalkingState();
+    }
+    else
+    {
+      newState = new IdleState();
+    }
+
+    if (newState != null && newState != state)
+    {
+      ChangeState(newState);
+
+      animator.SetBool("isRunning", newState is RunningState);
+      animator.SetBool("isWalking", newState is WalkingState);
+    }
+
+
+  }
 }
