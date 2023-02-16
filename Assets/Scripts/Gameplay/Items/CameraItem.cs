@@ -53,23 +53,12 @@ public class CameraItem : Item
 
   protected override void Action(Player player)
   {
-    // When used, emit a conecast from the player's camera
-
 
     var start = player.transform.position;
     var target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    var direction = target - start;
-
-    direction = direction.normalized * rayLength;
-
+    var direction = (target - start).normalized * rayLength;
 
     StartCoroutine(FlashCoroutine());
-
-    var topVector = Quaternion.AngleAxis(rayAngle, Vector3.forward) * direction;
-    var bottomVector = Quaternion.AngleAxis(-rayAngle, Vector3.forward) * direction;
-
-    var leftLimit = rayAngle;
-    var rightLimit = -rayAngle;
 
     var splitWidth = 5f;
     var rayQantity = rayAngle * 2 / splitWidth;
@@ -79,51 +68,20 @@ public class CameraItem : Item
     for (var i = 0; i <= rayQantity; i++)
     {
       var vector = Quaternion.AngleAxis(splitWidth * i - rayAngle, Vector3.forward) * direction;
-
       Debug.DrawRay(start, vector, Color.green, 1f);
       vectors.Add(vector);
     }
 
-
     foreach (var vec in vectors)
     {
       var hit = Physics2D.Raycast(start, vec, rayLength, LayerMask.GetMask("Walls"));
-
-
       if (hit.collider != null)
       {
         var hitpoint = hit.point;
-
         var mark = new GameObject("Mark");
         mark.transform.position = hitpoint;
         mark.AddComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
       }
-
-
     }
-
-    // var topRay = Physics2D.Raycast(start, topVector, rayLength, LayerMask.GetMask("Walls"));
-    // var bottomRay = Physics2D.Raycast(start, bottomVector, rayLength, LayerMask.GetMask("Walls"));
-    // var centerRay = Physics2D.Raycast(start, direction, rayLength, LayerMask.GetMask("Walls"));
-
-    // var rays = new List<RaycastHit2D> { topRay, bottomRay, centerRay };
-
-    // foreach (var ray in rays)
-    // {
-    //   if (ray.collider != null)
-    //   {
-    //     var hitpoint = ray.point;
-
-    //     var mark = new GameObject("Mark");
-    //     mark.transform.position = hitpoint;
-    //     mark.AddComponent<SpriteRenderer>().sprite = GetComponent<SpriteRenderer>().sprite;
-    //   }
-    // }
-
-
-
-
   }
-
-
 }
