@@ -4,7 +4,8 @@ public abstract class Item : Interactable
 {
   public Sprite icon = null;
   public float cooldownTime = 0f;
-  public float cooldownTimer = 0f;
+
+  [System.NonSerialized] public float cooldownTimer = 0f;
 
   public bool IsOnCooldown = false;
 
