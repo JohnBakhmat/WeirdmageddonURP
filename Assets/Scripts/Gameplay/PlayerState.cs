@@ -6,6 +6,7 @@ public interface PlayerState
   public bool canMove { get; }
   public bool canJump { get; }
   public bool canCrouch { get; }
+  public bool canDodge { get; }
   public float moveSpeed { get; }
 }
 
@@ -20,6 +21,7 @@ public class IdleState : PlayerState
 
   public bool canCrouch => true;
 
+  public bool canDodge => true;
 }
 public class WalkingState : PlayerState
 {
@@ -31,6 +33,7 @@ public class WalkingState : PlayerState
 
   public bool canCrouch => true;
 
+  public bool canDodge => true;
 
 }
 public class CrouchState : PlayerState
@@ -43,7 +46,7 @@ public class CrouchState : PlayerState
 
   public bool canCrouch => false;
 
-
+  public bool canDodge => true;
 }
 public class RunningState : PlayerState
 {
@@ -55,4 +58,5 @@ public class RunningState : PlayerState
 
   public bool canCrouch => true;
 
+  public bool canDodge => true;
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 enum FacingDirection
 {
@@ -16,6 +17,7 @@ public class Player : Character
   private float height = 0f;
   private FacingDirection facingDirection = FacingDirection.Right;
   private List<Item> inventory = new List<Item>();
+  private bool isDodging = false;
 
   [SerializeField] private Rigidbody2D rb;
   [SerializeField] private Transform groundCheck;
@@ -31,14 +33,21 @@ public class Player : Character
   [SerializeField] private float horizontalKnockback = 0.73f;
   [SerializeField] private float jumpForce = 5f;
   [SerializeField] private int inventorySize = 1;
+  [SerializeField] private float dodgeDistance = 5f;
+  [SerializeField] private float dodgeDuration = 0.2f;
 
 
   private void TakeDamage(int damage) => healthbar.TakeDamage(damage);
 
 
-  private bool isGrounded => Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+  private bool isGrounded => Physics2D.OverlapCircle(
+    groundCheck.position,
+    0.2f,
+    groundLayer);
 
-  private bool canUncrouch => !Physics2D.OverlapCircle(ceilingCheck.position, 0.2f, groundLayer);
+  private bool canUncrouch => !Physics2D.OverlapCircle(ceilingCheck.position,
+    0.2f,
+    groundLayer);
 
   private void Turn()
   {
@@ -67,6 +76,38 @@ public class Player : Character
       rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
     }
 
+  }
+
+  IEnumerator DodgeCoroutine()
+  {
+    isDodging = true;
+    var direction = (float)facingDirection;
+    var newPos = new Vector2(transform.position.x
+                             + direction
+                             * dodgeDistance, transform.position.y);
+
+    var startTime = Time.time;
+
+    while (Time.time < startTime + dodgeDuration)
+    {
+      var t = (Time.time - startTime) / dodgeDuration;
+      transform.position = Vector2.Lerp(transform.position, newPos, t);
+      rb.AddForce(new Vector2(direction * 3f, 0), ForceMode2D.Impulse);
+      yield return null;
+    }
+
+    transform.position = newPos;
+    isDodging = false;
+  }
+
+  private void Dodge()
+  {
+    if (!state.canDodge) return;
+
+    if (Input.GetKeyDown(KeyCode.Mouse1))
+    {
+      StartCoroutine(DodgeCoroutine());
+    }
   }
 
   private void Move()
@@ -150,12 +191,39 @@ public class Player : Character
     item.Use(this);
 
   }
+
   private void EffectTick(Effect[] effects)
   {
     foreach (var effect in effects)
     {
       effect.Update();
     }
+  }
+
+  private void HandleStateChange()
+  {
+    PlayerState newState = state;
+    if (horizontalInput != 0)
+    {
+      if (Input.GetKey(KeyCode.LeftShift))
+        newState = new RunningState();
+      else
+        newState = new WalkingState();
+    }
+    else
+    {
+      newState = new IdleState();
+    }
+
+    if (newState != null && newState != state)
+    {
+      ChangeState(newState);
+
+      animator.SetBool("isRunning", newState is RunningState);
+      animator.SetBool("isWalking", newState is WalkingState);
+    }
+
+
   }
 
   #region Gameloop
@@ -186,6 +254,7 @@ public class Player : Character
     Crouch();
     TouchTheEnemy();
     UseItem();
+    Dodge();
   }
 
 
@@ -196,35 +265,10 @@ public class Player : Character
     verticalInput = Input.GetAxisRaw("Vertical");
 
     HandleStateChange();
+
     Move();
     Jump();
   }
   #endregion
 
-
-  private void HandleStateChange()
-  {
-    PlayerState newState = state;
-    if (horizontalInput != 0)
-    {
-      if (Input.GetKey(KeyCode.LeftShift))
-        newState = new RunningState();
-      else
-        newState = new WalkingState();
-    }
-    else
-    {
-      newState = new IdleState();
-    }
-
-    if (newState != null && newState != state)
-    {
-      ChangeState(newState);
-
-      animator.SetBool("isRunning", newState is RunningState);
-      animator.SetBool("isWalking", newState is WalkingState);
-    }
-
-
-  }
 }
