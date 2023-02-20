@@ -1,11 +1,12 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Effect", menuName = "ScriptableObjects/Effect")]
+
 public class Effect : ScriptableObject
 {
   public Effectable target = null;
-  public float duration = 0;
-  protected float timeLeft = 0;
+  public float duration = 0f;
+  protected float timeLeft = 0f;
+  public bool isExpired => timeLeft <= 0;
 
   public Effect(Effectable target, float duration)
   {
@@ -20,21 +21,23 @@ public class Effect : ScriptableObject
       throw new System.Exception("Effectable target is null");
 
     target.ApplyEffect(this);
+    timeLeft = duration;
   }
 
 
   public void Update()
   {
+    if (!isExpired)
+    {
+      timeLeft -= Time.deltaTime;
+      EffectTick();
+    }
+
     if (timeLeft <= 0)
     {
       Remove();
       return;
     }
-
-    timeLeft -= Time.deltaTime;
-    EffectTick();
-
-
   }
   public void Remove() => target.RemoveEffect(this);
 

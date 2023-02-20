@@ -150,6 +150,13 @@ public class Player : Character
     item.Use(this);
 
   }
+  private void EffectTick(Effect[] effects)
+  {
+    foreach (var effect in effects)
+    {
+      effect.Update();
+    }
+  }
 
   #region Gameloop
 
@@ -170,17 +177,18 @@ public class Player : Character
 
     //Debug
     var stateUi = GameObject.Find("StateUI").GetComponent<TextMeshProUGUI>();
-    stateUi.text = state.ToString() + " " + horizontalInput;
-    // 
+    stateUi.text = effects.Count.ToString();
+    //     
 
-
-
+    EffectTick(effects.ToArray());
     Turn();
     Interact();
     Crouch();
     TouchTheEnemy();
     UseItem();
   }
+
+
 
   private void FixedUpdate()
   {

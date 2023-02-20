@@ -5,7 +5,7 @@ public abstract class Interactable : MonoBehaviour
   public abstract void Interact(Player player);
 
   public float detectRadius = 0.5f;
-  public GameObject interactionBar;
+  public GameObject interactionBar = null;
 
   public bool IsPlayerInRadius() =>
       Physics2D
