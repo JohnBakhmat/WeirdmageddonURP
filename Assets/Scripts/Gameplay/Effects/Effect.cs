@@ -25,13 +25,16 @@ public class Effect : ScriptableObject
 
   public void Update()
   {
-    timeLeft -= Time.deltaTime;
-    EffectTick();
-
     if (timeLeft <= 0)
     {
       Remove();
+      return;
     }
+
+    timeLeft -= Time.deltaTime;
+    EffectTick();
+
+
   }
   public void Remove() => target.RemoveEffect(this);
 
