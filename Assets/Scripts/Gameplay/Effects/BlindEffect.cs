@@ -16,12 +16,19 @@ public class BlindEffect : Effect
   public override void EffectTick()
   {
 
-    GameObject.Find("PostProcessingVolume")
-    .GetComponent<Volume>()
-    .profile.TryGet<Vignette>(out vignette);
 
-    var intensity = timeLeft / duration;
-    vignette.intensity.value = Mathf.Lerp(0, 0.9f, intensity);
+    if (DidHitPlayer())
+      PostProcess();
+  }
+
+  private bool DidHitPlayer() => target.GetType().FullName == "Player";
+
+  private void PostProcess()
+  {
+    GameObject.Find("PostProcessingVolume").GetComponent<Volume>().profile
+    .TryGet<Vignette>(out vignette);
+
+    vignette.intensity.value = Mathf.Lerp(0, 0.9f, timeLeft / duration);
 
   }
 }

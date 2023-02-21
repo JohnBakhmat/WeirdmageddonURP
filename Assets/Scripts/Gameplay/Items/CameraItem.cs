@@ -74,7 +74,7 @@ public class CameraItem : Item
 
     foreach (var vec in vectors)
     {
-      var hit = Physics2D.Raycast(start, vec, rayLength, LayerMask.GetMask("Walls"));
+      var hit = Physics2D.Raycast(start, vec, rayLength, LayerMask.GetMask("Character"));
       if (hit.collider != null)
       {
         var hitpoint = hit.point;
