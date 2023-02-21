@@ -9,14 +9,10 @@ public class BlindEffect : Effect
   {
   }
 
-
-
   private Vignette vignette;
 
   public override void EffectTick()
   {
-
-
     if (DidHitPlayer())
       PostProcess();
   }
