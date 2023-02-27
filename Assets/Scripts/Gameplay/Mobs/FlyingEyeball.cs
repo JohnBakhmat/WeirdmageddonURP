@@ -34,17 +34,14 @@ public class FlyingEyeball : MonoBehaviour
 
   private void Update()
   {
+    
+    Patrol();
+  }
+
+  private void Patrol()
+  {
     Turn();
-    Move();
-  }
 
-  private void FixedUpdate()
-  {
-
-  }
-
-  private void Move()
-  {
     _currentPingPong = Mathf.PingPong(Time.time * _moveSpeed, 1);
     transform.position = Vector3.Lerp(_startPosition, _endPosition, _currentPingPong);
     // transform.position = new Vector3(transform.position.x, _startPosition.y, transform.position.z) + new Vector3(0, Mathf.Sin(Time.time * _floatSpeed), 0);
