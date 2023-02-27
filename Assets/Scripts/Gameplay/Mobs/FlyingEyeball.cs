@@ -1,10 +1,14 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class FlyingEyeball : MonoBehaviour
 {
   private Rigidbody2D _rigidbody2D;
   private Animator _animator;
   private SpriteRenderer _spriteRenderer;
+  private GameObject _lightSource;
+
+  [SerializeField] private float _lightRotationAngle = 133;
 
   [SerializeField] private float _floatSpeed = 2f;
   [SerializeField] private float _floatHeight = 1f;
@@ -25,12 +29,12 @@ public class FlyingEyeball : MonoBehaviour
     _animator = GetComponent<Animator>();
     _spriteRenderer = GetComponent<SpriteRenderer>();
     _startPosition = transform.position;
+    _lightSource = transform.Find("Light").gameObject;
   }
 
   private void Update()
   {
     Turn();
-
     Move();
   }
 
@@ -58,13 +62,16 @@ public class FlyingEyeball : MonoBehaviour
 
   private void Turn()
   {
+
     switch (_facingDirection)
     {
       case FacingDirection.Left:
         _spriteRenderer.flipX = true;
+        _lightSource.transform.rotation = Quaternion.Euler(0,0, -_lightRotationAngle);
         break;
       case FacingDirection.Right:
         _spriteRenderer.flipX = false;
+        _lightSource.transform.rotation = Quaternion.Euler(0, 0, _lightRotationAngle);
         break;
     }
   }
