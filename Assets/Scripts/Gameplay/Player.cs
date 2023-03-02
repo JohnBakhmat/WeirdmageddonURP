@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Collections;
 
 enum FacingDirection
 {
@@ -78,35 +77,20 @@ public class Player : Character
 
   }
 
-  IEnumerator DodgeCoroutine()
+  private void HandleDash()
   {
-    isDodging = true;
-    var direction = (float)facingDirection;
-    var newPos = new Vector2(transform.position.x
-                             + direction
-                             * dodgeDistance, transform.position.y);
 
-    var startTime = Time.time;
 
-    while (Time.time < startTime + dodgeDuration)
-    {
-      var t = (Time.time - startTime) / dodgeDuration;
-      transform.position = Vector2.Lerp(transform.position, newPos, t);
-      rb.AddForce(new Vector2(direction * 3f, 0), ForceMode2D.Impulse);
-      yield return null;
-    }
 
-    transform.position = newPos;
-    isDodging = false;
   }
 
-  private void Dodge()
+  private void Dash()
   {
     if (!state.canDodge) return;
 
     if (Input.GetKeyDown(KeyCode.Mouse1))
     {
-      StartCoroutine(DodgeCoroutine());
+      HandleDash();
     }
   }
 
@@ -254,7 +238,7 @@ public class Player : Character
     Crouch();
     TouchTheEnemy();
     UseItem();
-    Dodge();
+    Dash();
   }
 
 
