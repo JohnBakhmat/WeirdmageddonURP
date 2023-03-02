@@ -71,9 +71,9 @@ public class Player : Character
   {
     if (!state.canJump || !isGrounded) return;
 
-    if (verticalInput > 0)
+    if (Input.GetKey(KeyCode.Space))
     {
-      rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+      rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     }
 
   }
