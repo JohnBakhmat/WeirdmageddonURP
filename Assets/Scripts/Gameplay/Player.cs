@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 enum FacingDirection
 {
@@ -22,7 +23,7 @@ public class Player : Character
   [SerializeField] private Transform groundCheck;
   [SerializeField] private Transform ceilingCheck;
   [SerializeField] private LayerMask groundLayer;
-  [SerializeField] private new CapsuleCollider2D collider;
+  [SerializeField] private CapsuleCollider2D collider;
   [SerializeField] private Healthbar healthbar;
   [SerializeField] private Animator animator;
   [SerializeField] private InventoryUI inventoryUI;
@@ -77,10 +78,20 @@ public class Player : Character
 
   }
 
-  private void HandleDash()
+
+  private IEnumerator DashCoroutine()
   {
 
+    var ogGravity = rb.gravityScale;
+    rb.gravityScale = 0;
 
+    var direction = facingDirection == FacingDirection.Left ? Vector2.left : Vector2.right;
+
+    rb.velocity += new Vector2(transform.localScale.x * dodgeDistance, 0f);
+
+    yield return new WaitForSeconds(dodgeDuration);
+
+    rb.gravityScale = ogGravity;
 
   }
 
@@ -88,9 +99,9 @@ public class Player : Character
   {
     if (!state.canDodge) return;
 
-    if (Input.GetKeyDown(KeyCode.Mouse1))
+    if (Input.GetKeyDown(KeyCode.RightShift))
     {
-      HandleDash();
+      StartCoroutine(DashCoroutine());
     }
   }
 
@@ -235,7 +246,7 @@ public class Player : Character
     EffectTick(effects.ToArray());
     Turn();
     Interact();
-    Crouch();
+    // Crouch();
     TouchTheEnemy();
     UseItem();
     Dash();
@@ -249,7 +260,6 @@ public class Player : Character
     verticalInput = Input.GetAxisRaw("Vertical");
 
     HandleStateChange();
-
     Move();
     Jump();
   }
